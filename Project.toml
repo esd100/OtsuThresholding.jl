@@ -1,0 +1,7 @@
+name = "OtsuThresholding"
+uuid = "70bdbfc6-e9c9-457d-a859-87a2987b95b3"
+authors = ["Eric Diaz <eric.diaz@gmail.com>"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.11"
