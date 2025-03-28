@@ -1,6 +1,7 @@
 using OtsuThresholding
 using Documenter
 
+# Automatically generate doctrings for API section
 DocMeta.setdocmeta!(OtsuThresholding, :DocTestSetup, :(using OtsuThresholding); recursive=true)
 
 makedocs(;
@@ -16,6 +17,8 @@ makedocs(;
         "Home" => "index.md",
     ],
 )
+
+
 
 deploydocs(;
     repo="github.com/esd100/OtsuThresholding.jl",
