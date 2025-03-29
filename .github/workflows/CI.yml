@@ -36,13 +36,13 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v2
-      - name: Instantiate and Test # <--- COMBINED STEP
+      - name: Develop, Instantiate and Test # <--- COMBINED STEP
         shell: julia --color=yes {0}
         run: |
           using Pkg
-          Pkg.activate("."; io=devnull)
+          Pkg.develop(PackageSpec(path=pwd()); io=devnull)
           Pkg.instantiate(; io=devnull)
-          Pkg.test(; coverage=true, julia_args=["--check-bounds=yes", "--compiled-modules=yes", "--depwarn=yes"], force_latest_compatible_version=false, allow_reresolve=true)
+          Pkg.test("OtsuThresholding"; coverage=true, julia_args=["--check-bounds=yes", "--compiled-modules=yes", "--depwarn=yes"], force_latest_compatible_version=false, allow_reresolve=true)
   docs:
     name: Documentation
     runs-on: ubuntu-latest
