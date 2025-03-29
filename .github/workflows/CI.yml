@@ -42,7 +42,7 @@ jobs:
           using Pkg
           Pkg.activate("."; io=devnull)
           Pkg.instantiate(; io=devnull)
-          include("test/runtests.jl")
+          include(joinpath(pwd(), "test", "runtests.jl"))
   docs:
     name: Documentation
     runs-on: ubuntu-latest
