@@ -36,14 +36,14 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v2
-      - name: Develop the package # <--- ADD THIS STEP
+      - name: Instantiate and Test # <--- COMBINED STEP
         shell: julia --color=yes {0}
         run: |
           using Pkg
-          Pkg.develop(PackageSpec(path=pwd()))
-          Pkg.instantiate()
-      # - uses: julia-actions/julia-buildpkg@v1 # This might become redundant after the develop/instantiate step above
-      - uses: julia-actions/julia-runtest@v1
+          Pkg.activate("."; io=devnull)
+          Pkg.develop(PackageSpec(path=pwd()); io=devnull)
+          Pkg.instantiate(; io=devnull)
+          Pkg.test(; coverage=true, julia_args=["--check-bounds=yes", "--compiled-modules=yes", "--depwarn=yes"], force_latest_compatible_version=false, allow_reresolve=true)
   docs:
     name: Documentation
     runs-on: ubuntu-latest
