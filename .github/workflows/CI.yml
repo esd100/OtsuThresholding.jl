@@ -36,7 +36,13 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v2
-      - uses: julia-actions/julia-buildpkg@v1
+      - name: Develop the package # <--- ADD THIS STEP
+        shell: julia --color=yes {0}
+        run: |
+          using Pkg
+          Pkg.develop(PackageSpec(path=pwd()))
+          Pkg.instantiate()
+      # - uses: julia-actions/julia-buildpkg@v1 # This might become redundant after the develop/instantiate step above
       - uses: julia-actions/julia-runtest@v1
   docs:
     name: Documentation
