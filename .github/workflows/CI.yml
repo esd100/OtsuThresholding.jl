@@ -42,7 +42,12 @@ jobs:
           using Pkg
           Pkg.activate("."; io=devnull)
           Pkg.instantiate(; io=devnull)
-          include(joinpath(pwd(), "test", "runtests.jl"))
+          test_deps = ["Test", "Images", "ColorTypes", "FixedPointNumbers", "TestImages", "Statistics", "LinearAlgebra", "StatsBase", "Optim"]
+          Pkg.add(test_deps; io=devnull)
+          Pkg.precompile(; io=devnull)
+          test_script_path = joinpath(ENV["GITHUB_WORKSPACE"], "test", "runtests.jl")
+          println("Running tests from: ", test_script_path)
+          include(test_script_path)
   docs:
     name: Documentation
     runs-on: ubuntu-latest
